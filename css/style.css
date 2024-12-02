@@ -1,0 +1,452 @@
+/* Reset and general styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+}
+
+body {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #E5E5E5;
+}
+
+/* Navigation */
+.navbar {
+    padding: 6rem 4rem;
+    background-color: #E5E5E5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+    box-shadow: none;
+}
+
+.nav-brand {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-weight: 500;
+    font-size: 3.5rem;
+    text-decoration: none;
+    color: inherit;
+    text-transform: lowercase;
+}
+
+.nav-links {
+    display: flex;
+    gap: 6rem;
+}
+
+.nav-links a {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.25rem;
+    position: relative;
+    transition: color 0.3s ease;
+    text-transform: lowercase;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1.5px;
+    bottom: -1px;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+.nav-links a:hover::after {
+    transform-origin: bottom left;
+    transform: scaleX(1);
+}
+
+.nav-links a.active {
+    color: #000;
+}
+
+.nav-links a.active::after {
+    transform: scaleX(1);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px;
+    padding-right: 0;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+}
+
+.hamburger span {
+    display: block;
+    width: 28px;
+    height: 2.5px;
+    background: #333;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+                opacity 0.2s ease;
+    transform-origin: center;
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 6rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-brand {
+        font-size: 3rem;
+        font-weight: 500;
+        padding-left: 0;
+    }
+
+    /* Add specific container for nav items */
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Adjust hamburger position */
+    .hamburger {
+        display: flex;
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    /* Updated overlay styles with more visible shadow */
+    .nav-overlay {
+        position: fixed;
+        top: calc(6rem + 85px);  /* Navbar height (padding-top + content + padding-bottom) */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 6rem - 85px);  /* Viewport height minus navbar height */
+        background: rgba(229, 229, 229, 0.4);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+        pointer-events: none;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 998;
+    }
+
+    .nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+    }
+
+    .nav-links {
+        display: flex;
+        position: absolute;
+        top: calc(100% - 1px);  /* Overlap by 1px to avoid gap */
+        left: 0;
+        right: 0;
+        background: #E5E5E5;  /* Same as navbar background */
+        padding: 4rem 2rem;
+        flex-direction: column;
+        box-shadow: none;
+        z-index: 999;
+        gap: 3rem;
+        align-items: center;
+        
+        transform: translateY(-10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+        pointer-events: none;
+    }
+
+    .nav-links a {
+        font-size: 2rem;
+        padding: 0.25rem 0;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        display: inline-block;
+        text-align: center;
+    }
+
+    .nav-links.active a:nth-child(1) { transition-delay: 0.1s; }
+    .nav-links.active a:nth-child(2) { transition-delay: 0.15s; }
+    .nav-links.active a:nth-child(3) { transition-delay: 0.2s; }
+
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+    }
+
+    .nav-links.active a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .hamburger {
+        display: flex;
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    /* Hamburger animation classes */
+    .hamburger.active {
+        transform: rotate(180deg);
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(6.25px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        transform: translateY(-6.25px) rotate(-45deg);
+    }
+
+    .nav-brand {
+        font-size: 3rem;
+        font-weight: 500;
+        margin-left: 0;
+    }
+
+    /* Move the nav-overlay below the menu but above the content */
+    .nav-overlay {
+        z-index: 998;
+    }
+
+    .nav-links {
+        z-index: 999;
+    }
+
+    .navbar {
+        background: #E5E5E5;
+        z-index: 1000;
+    }
+
+    /* Mobile/tablet underline position */
+    .nav-links a::after {
+        bottom: -1px;
+        height: 1.5px;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 6rem 2rem;
+    }
+}
+
+/* Main content */
+main {
+    padding: 0;
+    width: 100%;
+    flex: 1 0 auto;
+}
+
+/* Footer styles */
+.footer {
+    min-height: 100vh;  /* Full viewport height */
+    background-color: #E5E5E5;
+    padding: 6rem 4rem;  /* Match navbar padding */
+    margin-top: 2rem;
+    position: relative;
+}
+
+.copyright {
+    position: absolute;
+    left: 4rem;        /* Match navbar padding */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #000;
+    font-weight: 300;
+}
+
+/* Update footer responsive styles */
+@media (max-width: 1024px) {
+    .footer {
+        padding: 6rem 2rem;  /* Match navbar responsive padding */
+    }
+    
+    .copyright {
+        left: 2rem;    /* Match navbar responsive padding */
+    }
+}
+
+/* Add specific styling for pages that need padding */
+.about-me, .case-study {
+    padding: 2rem 4rem;  /* Match masonry grid padding */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .about-me, .case-study {
+        padding: 2rem;  /* Match masonry grid responsive padding */
+    }
+}
+
+/* About Me section */
+.about-me {
+    margin-bottom: 3rem;
+}
+
+.about-me h1 {
+    margin-bottom: 1rem;
+}
+
+/* Remove the previous body *:not selector and replace with this */
+h1, h2, h3, h4, h5, h6, p, a, li, span, div {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+}
+
+/* To ensure all text uses the Adobe font */
+* {
+    font-family: itc-avant-garde-gothic-pro, sans-serif !important;
+}
+
+/* Specific font weights for different text elements */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+
+p, li, span {
+    font-weight: 300;
+}
+
+.nav-brand {
+    font-weight: 500;
+}
+
+.nav-links a {
+    font-weight: 500;
+}
+
+/* Add this to ensure proper font loading */
+.wf-loading * {
+    opacity: 0;
+}
+
+.wf-active *, .wf-inactive * {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Font consistency updates */
+* {
+    font-family: itc-avant-garde-gothic-pro, sans-serif !important;
+}
+
+/* Specific font weights */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+
+p, li, span {
+    font-weight: 300;
+    line-height: 1.8;
+}
+
+.nav-brand {
+    font-weight: 500;
+}
+
+.nav-links a {
+    font-weight: 500;
+}
+
+.copyright {
+    font-weight: 300;
+    font-size: 0.875rem;
+}
+
+/* Font loading states */
+.wf-loading * {
+    opacity: 0;
+}
+
+.wf-active *, .wf-inactive * {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* About Me section specific styles */
+.about-me h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.about-me p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+}
+
+/* Update tablet breakpoint styles */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 6rem 2rem;  /* Match grid padding */
+    }
+
+    .masonry-grid {
+        padding: 0 2rem;  /* Match navbar padding */
+    }
+
+    .case-studies-grid {
+        padding: 2rem;  /* Match navbar padding */
+    }
+
+    .about-me {
+        padding: 2rem;  /* Match navbar padding */
+    }
+
+    .footer {
+        padding: 6rem 2rem;  /* Match navbar padding */
+    }
+    
+    .copyright {
+        left: 2rem;  /* Match navbar padding */
+    }
+}
+
+/* Add this to your existing styles */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* Update selection color styles */
+::selection {
+    background: #FFA500; /* Pure orange */
+    color: #ffffff; /* White text */
+}
+
+/* For Firefox */
+::-moz-selection {
+    background: #FFA500; /* Pure orange */
+    color: #ffffff; /* White text */
+}
+  

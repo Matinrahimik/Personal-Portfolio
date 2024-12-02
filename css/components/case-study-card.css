@@ -1,0 +1,476 @@
+.case-study-card {
+  position: relative;
+  display: block;
+  overflow: visible;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  line-height: 0;
+  text-decoration: none;
+  transform-origin: center center;
+  transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+/* Idle animation - specifically for case study cards */
+@keyframes subtle-float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Apply idle animation only to case study cards */
+.masonry-item .case-study-card {
+  animation: subtle-float 3s ease-in-out infinite;
+  will-change: transform;
+  transform-origin: center center;
+  transform: scale(1);
+  z-index: 1;
+  position: relative;
+  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced hover effect with centered shadow */
+.masonry-item .case-study-card:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 40px -8px rgba(0, 0, 0, 0.25),
+    0 0 60px -8px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+}
+
+/* Image styling specific to case study cards */
+.case-study-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 2;
+}
+
+/* Masonry item modifications only for case study cards */
+.masonry-item:has(.case-study-card) {
+  overflow: visible !important;
+  z-index: 1;
+  position: relative;
+}
+
+.masonry-item:has(.case-study-card):hover {
+  z-index: 1001;
+}
+
+/* Allow overflow only for columns containing case study cards */
+.masonry-column:has(.case-study-card) {
+  overflow: visible !important;
+}
+
+/* Add transition for all images in the grid */
+.masonry-item img {
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* When any case study card is hovered, affect all other images AND badges */
+.masonry-item .case-study-card:hover ~ .masonry-item img,
+.masonry-item .case-study-card:hover ~ .masonry-item .case-study-badge,
+.masonry-item:has(.case-study-card):hover ~ .masonry-item img,
+.masonry-item:has(.case-study-card):hover ~ .masonry-item .case-study-badge,
+.masonry-column:has(.case-study-card:hover) .masonry-item:not(:has(.case-study-card:hover)) img,
+.masonry-column:has(.case-study-card:hover) .masonry-item:not(:has(.case-study-card:hover)) .case-study-badge,
+.masonry-grid:has(.case-study-card:hover) .masonry-column:not(:has(.case-study-card:hover)) .masonry-item img,
+.masonry-grid:has(.case-study-card:hover) .masonry-column:not(:has(.case-study-card:hover)) .masonry-item .case-study-badge {
+  filter: grayscale(100%) blur(10px);
+  opacity: 0.7;
+  position: relative;
+  z-index: 1000;
+}
+
+/* Ensure hovered case study card and its elements stay clear */
+.masonry-item .case-study-card:hover,
+.masonry-item .case-study-card:hover img,
+.masonry-item .case-study-card:hover .case-study-badge {
+  filter: none;
+  opacity: 1;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Add transition to badge */
+.case-study-badge {
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Add smooth transition to all masonry items */
+.masonry-item {
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  z-index: 1000;
+}
+
+/* Update masonry grid container */
+.masonry-grid {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Ensure case study card stays on top */
+.masonry-item .case-study-card:hover {
+  z-index: 1001;
+}
+
+/* Add glow animation keyframes */
+@keyframes dreamyGlow {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) scale(1);
+  }
+}
+
+/* Add glow element */
+.case-study-card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+  will-change: transform, opacity;
+  filter: blur(25px);
+  background: radial-gradient(circle at center, 
+    rgba(255, 165, 0, 0.5) 0%,
+    rgba(255, 165, 0, 0.3) 30%,
+    rgba(255, 165, 0, 0.2) 50%,
+    transparent 70%);
+}
+
+/* Activate glow on hover */
+.masonry-item .case-study-card:hover::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: dreamyGlow 16s infinite linear;
+  animation-delay: 3s;
+}
+
+/* Ensure proper stacking context */
+.case-study-card {
+  position: relative;
+  z-index: 2;
+}
+
+.case-study-card img {
+  position: relative;
+  z-index: 2;
+}
+
+/* Update masonry item z-index */
+.masonry-item:has(.case-study-card) {
+  z-index: 1;
+}
+
+.masonry-item:has(.case-study-card):hover {
+  z-index: 1001;
+}
+
+/* Add smooth scroll behavior to html */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Info panel styling - Expanded from the card */
+.case-study-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%; /* Position below the card */
+  background-color: #fff; /* Solid white background */
+  padding: 24px;
+  opacity: 0; /* Start hidden */
+  pointer-events: none; /* Prevent interaction when hidden */
+  z-index: 1002; /* Ensure it's above other elements */
+  border-radius: 0; /* Sharp corners */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: none; /* Remove transition for instant appearance */
+}
+
+/* Show info panel on hover - Instant */
+.case-study-card:hover .case-study-info {
+  opacity: 1; /* Make visible */
+  pointer-events: auto; /* Allow interaction */
+}
+
+/* Info panel typography with updated spacing */
+.case-study-title {
+  font-family: itc-avant-garde-gothic-pro, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 8px 0; /* Reduced top margin from 16px to 8px */
+  color: #000;
+}
+
+.case-study-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 16px; /* Increased space below description */
+}
+
+.case-study-role {
+  font-size: 15px;
+  color: #666;
+  font-style: italic;
+  margin-top: 12px; /* Space above role */
+  border-top: 1px solid #ccc; /* Line above role */
+  padding-top: 12px; /* Space between line and role text */
+  width: 100%; /* Ensure the line is full width */
+  position: relative; /* Ensure it takes full width */
+  margin-left: 0; /* Remove left margin */
+  margin-right: 0; /* Remove right margin */
+  padding-left: 0; /* Remove left padding */
+  padding-right: 0; /* Remove right padding */
+}
+
+.case-study-skills {
+  display: flex;
+  gap: 12px; /* Increased gap for more space between skill badges */
+  flex-wrap: wrap;
+  margin-top: 8px; /* Increased space above skills */
+}
+
+.skill-badge {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 6px 12px; /* Keep padding for smaller badges */
+  border-radius: 4px;
+  font-size: 12px; /* Smaller font size for badges */
+  font-weight: 400;
+  color: #000;
+}
+
+/* Ensure info panel text stays sharp */
+.case-study-info * {
+  filter: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Prevent blur effects from affecting the info panel */
+.masonry-item .case-study-card:hover .case-study-info,
+.masonry-item .case-study-card:hover .case-study-info * {
+  filter: none !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Ensure the masonry item containing case study card has proper stacking context */
+.masonry-item:has(.case-study-card) {
+  position: relative;
+  z-index: auto;
+}
+
+.masonry-item:has(.case-study-card):hover {
+  z-index: 9998;
+}
+
+/* New simplified badge hiding logic */
+.masonry-grid:has(.case-study-card:hover) .case-study-badge {
+  display: none;
+}
+
+/* Keep only the hovered card's badge visible */
+.masonry-grid:has(.case-study-card:hover) .case-study-card:hover .case-study-badge {
+  display: block;
+}
+
+/* Base badge styling */
+.case-study-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding: 10px 20px;
+  font-size: 17px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #000;
+  z-index: 1002;
+  line-height: normal;
+  font-family: itc-avant-garde-gothic-pro, sans-serif;
+  letter-spacing: 1.2px;
+  pointer-events: none;
+  text-align: left;
+}
+
+/* Badge styling */
+.case-study-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  font-size: 17px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #000;
+  z-index: 1002;
+  line-height: normal;
+  font-family: itc-avant-garde-gothic-pro, sans-serif;
+  letter-spacing: 1.2px;
+  pointer-events: none;
+  text-align: left;
+  transition: background 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Media query for tablet */
+@media (max-width: 1024px) {
+  .case-study-badge {
+    font-size: 17px;
+    padding: 10px 20px;
+  }
+}
+
+/* Media query for mobile */
+@media (max-width: 768px) {
+  .case-study-badge {
+    font-size: 17px;
+    padding: 10px 20px;
+  }
+
+  .case-study-title {
+    margin: 10px 0;
+  }
+
+  .case-study-description {
+    margin-bottom: 12px;
+  }
+
+  .case-study-role {
+    margin-top: 8px;
+  }
+}
+
+/* Add hover effect to badge when card is hovered */
+.case-study-card:hover .case-study-badge {
+  background: #fff;
+  color: #000;
+  text-align: left;
+  padding: 10px 20px;
+  letter-spacing: 1.4px;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Info panel styling */
+.case-study-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%; /* Position below the card */
+  background-color: #fff; /* Solid white background */
+  padding: 24px;
+  opacity: 0; /* Start hidden */
+  pointer-events: none; /* Prevent interaction when hidden */
+  z-index: 1002; /* Ensure it's above other elements */
+  border-radius: 0; /* Sharp corners */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.4s ease; /* Instant appearance */
+}
+
+/* Show info panel on hover */
+.case-study-card:hover .case-study-info {
+  opacity: 1; /* Make visible */
+  pointer-events: auto; /* Allow interaction */
+}
+
+/* Responsive typography */
+.case-study-title {
+  font-family: itc-avant-garde-gothic-pro, sans-serif;
+  font-size: 1.5rem; /* Responsive font size */
+  font-weight: 500;
+  margin: 16px 0; /* Set bottom margin */
+  color: #000;
+}
+
+.case-study-description {
+  font-size: 1rem; /* Responsive font size */
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 16px; /* Increased space below description */
+}
+
+.case-study-role {
+  font-size: 0.9rem; /* Responsive font size */
+  color: #666;
+  font-style: italic;
+  margin-top: 12px; /* Space above role */
+  border-top: 1px solid #ccc; /* Line above role */
+  padding-top: 12px; /* Space between line and role text */
+}
+
+.case-study-skills {
+  display: flex;
+  gap: 8px; /* Space between skill badges */
+  flex-wrap: wrap;
+  margin-top: 8px; /* Space above skills */
+}
+
+.skill-badge {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 4px 8px; /* Smaller padding for badges */
+  border-radius: 4px;
+  font-size: 0.8rem; /* Responsive font size */
+  font-weight: 400;
+  color: #000;
+}
+
+/* Media queries for further responsiveness */
+@media (max-width: 768px) {
+  .case-study-title {
+    font-size: 1.2rem; /* Smaller title on mobile */
+  }
+
+  .case-study-description {
+    font-size: 0.9rem; /* Smaller description on mobile */
+  }
+
+  .case-study-role {
+    font-size: 0.8rem; /* Smaller role text on mobile */
+  }
+
+  .skill-badge {
+    font-size: 0.7rem; /* Smaller skill badge text on mobile */
+  }
+}
+ 

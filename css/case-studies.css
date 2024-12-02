@@ -1,0 +1,409 @@
+.case-studies-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0;
+    max-width: calc(100% - 8rem);
+    margin: 2rem auto 0;
+    position: relative;
+    isolation: isolate;
+    z-index: 2;
+    padding-bottom: 40vh;
+    align-items: start;
+}
+
+.case-study-card {
+    position: relative;
+    height: fit-content;
+    background: #ffffff;
+    border-radius: 0;
+    overflow: hidden;
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    color: #000;
+    z-index: 1;
+    margin-bottom: 0;
+    box-shadow: 
+        0 0 0 rgba(255, 165, 0, 0),
+        0 0 0 rgba(255, 165, 0, 0),
+        0 0 0 rgba(255, 165, 0, 0);
+}
+
+.case-study-card:hover {
+    animation: glowScale 2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    z-index: 9999;
+    position: relative;
+}
+
+.card-image-container {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card-overlay {
+    display: none;
+}
+
+.case-studies-grid:has(.case-study-card:hover) .case-study-card:not(:hover) {
+    filter: grayscale(100%) blur(4px);
+    opacity: 0.7;
+    transform: scale(0.95);
+    z-index: 1;
+}
+
+.case-study-card:hover .card-image,
+.case-study-card:hover .card-content,
+.case-study-card:hover .badges {
+    filter: none !important;
+    position: relative;
+    z-index: 10000;
+}
+
+.case-studies-grid .case-study-card {
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
+                filter 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card-content {
+    position: relative;
+    padding: 1.5rem;
+    background: #ffffff;
+    transition: padding 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card-content h2 {
+    color: #000;
+    margin-bottom: 0.8rem;
+    font-size: 2.4rem;
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.card-content p {
+    color: #333;
+    margin-bottom: 0;
+}
+
+.badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: #f0f0f0;
+    color: #000;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .case-studies-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 0 10px;
+        margin-top: 10px;
+        max-width: calc(100% - 2rem);
+    }
+
+    .case-study-card {
+        margin-bottom: 0;
+    }
+
+    .card-content {
+        padding: 1rem;
+    }
+
+    .card-content h2 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-content p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .case-study-role {
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .badges {
+        gap: 0.3rem;
+    }
+
+    .badge {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .card-content hr {
+        margin: 0.8rem 0;
+    }
+
+    @keyframes glowScale {
+        100% {
+            box-shadow: 
+                0 0 30px rgba(255, 165, 0, 0.6),
+                0 0 60px rgba(255, 165, 0, 0.4),
+                0 0 90px rgba(255, 165, 0, 0.2);
+            transform: scale(1.05);
+        }
+    }
+}
+
+/* Case study page specific styles */
+.case-study h1 {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-weight: 500;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.case-study h2 {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-weight: 500;
+    font-size: 1.75rem;
+    margin: 2rem 0 1rem;
+}
+
+.case-study p {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.case-study-content {
+    margin-top: 3rem;
+}
+
+.case-study-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background-color: #fff;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1002;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.4s ease;
+}
+
+.case-study-card:hover .case-study-info {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.case-study-title {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 16px 0;
+    color: #000;
+}
+
+.case-study-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.case-study-role {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+    margin-bottom: 1rem;
+}
+
+.case-study-skills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.skill-badge {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #000;
+}
+
+.navbar {
+    position: relative;
+    z-index: 1;
+}
+
+.footer {
+    position: relative;
+    z-index: 1;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+}
+
+/* Add keyframes for glow animation */
+@keyframes glowScale {
+    0% {
+        box-shadow: 
+            0 0 0 rgba(255, 165, 0, 0),
+            0 0 0 rgba(255, 165, 0, 0),
+            0 0 0 rgba(255, 165, 0, 0);
+        transform: scale(1);
+    }
+    100% {
+        box-shadow: 
+            0 0 60px rgba(255, 165, 0, 0.6),
+            0 0 120px rgba(255, 165, 0, 0.4),
+            0 0 180px rgba(255, 165, 0, 0.2);
+        transform: scale(1.1);
+    }
+}
+
+/* Ensure the content scales with the card */
+.case-study-card:hover .card-content {
+    transform: scale(1);
+}
+
+/* Update mobile animation */
+@media (max-width: 768px) {
+    @keyframes glowScale {
+        100% {
+            box-shadow: 
+                0 0 60px rgba(255, 165, 0, 0.6),
+                0 0 120px rgba(255, 165, 0, 0.4),
+                0 0 180px rgba(255, 165, 0, 0.2);
+            transform: scale(1.05);
+        }
+    }
+}
+
+/* Add these styles for the horizontal line and adjust margins */
+.card-content hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 1rem 0;
+}
+
+.card-content p {
+    color: #333;
+    margin-bottom: 0;
+}
+
+.case-study-role {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+    margin-bottom: 1rem;
+}
+
+.badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0;
+    flex-wrap: wrap;
+}
+
+/* Add tablet breakpoint for medium-sized screens */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .case-studies-grid {
+        max-width: calc(100% - 4rem);
+    }
+
+    .card-content {
+        padding: 1.25rem;
+    }
+
+    .card-content h2 {
+        font-size: 2rem;
+    }
+
+    .card-content p {
+        font-size: 0.95rem;
+    }
+
+    .case-study-role {
+        font-size: 0.85rem;
+    }
+
+    .badge {
+        padding: 0.22rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Update card content structure */
+.card-content hr,
+.card-content .case-study-role,
+.card-content .badges {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+/* Show elements on hover */
+.case-study-card:hover .card-content hr {
+    opacity: 1;
+    height: 1px;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.case-study-card:hover .card-content .case-study-role {
+    opacity: 1;
+    height: auto;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.case-study-card:hover .card-content .badges {
+    opacity: 1;
+    height: auto;
+    margin-top: 0;
+    position: relative;
+}
+
+/* Optionally increase padding on hover to accommodate new content */
+.case-study-card:hover .card-content {
+    padding: 1.5rem 1.5rem 2rem;
+}
+ 
